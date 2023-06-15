@@ -1,6 +1,11 @@
-export const metadata = {
+import type { Metadata } from 'next'
+import './globals.css'
+
+import Header from '@/components/layout/header'
+
+export const metadata: Metadata = {
   title: 'Showerthoughts',
-  description: 'Ponderings and Insights',
+  description: "A Software Engineer's Ponderings and Insights",
 }
 
 export default function RootLayout({
@@ -10,7 +15,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <Header/>
+        <main>{children}</main>
+      </body>
     </html>
   )
 }
