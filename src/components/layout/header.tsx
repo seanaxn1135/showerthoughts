@@ -50,32 +50,16 @@ export default function Header() {
                   </div>
                 </div>
                 <nav className="grid gap-y-8">
-                  <Link
-                    className="focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-500 px-2"
-                    onClick={() => close()}
-                    href="/"
-                  >
+                  <Link onClick={() => close()} href="/">
                     Home
                   </Link>
-                  <Link
-                    className="focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-500 px-2"
-                    onClick={() => close()}
-                    href="/blog"
-                  >
+                  <Link onClick={() => close()} href="/blog">
                     Blog
                   </Link>
-                  <Link
-                    className="focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-500 px-2"
-                    onClick={() => close()}
-                    href="/about"
-                  >
+                  <Link onClick={() => close()} href="/about">
                     About
                   </Link>
-                  <Link
-                    className="focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-500 px-2"
-                    onClick={() => close()}
-                    href="/contact"
-                  >
+                  <Link onClick={() => close()} href="/contact">
                     Contact
                   </Link>
                 </nav>
