@@ -1,8 +1,10 @@
 import { render, screen } from '@testing-library/react'
 import Home from '../page'
 
-test('renders Home on the screen', () => {
-  render(<Home />)
-  const homeElement = screen.getByText('Home')
-  expect(homeElement).toBeInTheDocument()
+describe('Home component', () => {
+  test('renders the image', () => {
+    render(<Home />)
+    const imageElement = screen.getByAltText('Coding Developer')
+    expect(imageElement).toBeInTheDocument()
+  })
 })

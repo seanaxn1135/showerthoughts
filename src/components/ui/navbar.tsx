@@ -33,7 +33,6 @@ function CustomLink({
   name: string
 }) {
   const pathName = usePathname()
-  console.log(usePathname())
   return (
     <Link key={key} href={href} className="relative group">
       {name}
