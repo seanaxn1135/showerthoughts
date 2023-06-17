@@ -21,9 +21,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={montserrat.className}>
-      <body className="font-mont bg-light w-full min-h-screen">
+      <body className="font-mont bg-light flex flex-col mt-8 md:mt-16 lg:mt-16 lg:mx-auto">
         <Header />
-        <main>{children}</main>
+        <main className="container mx-auto max-h-screen" >{children}</main>
       </body>
     </html>
   )

@@ -10,7 +10,7 @@ export default function Header() {
     <header className="container mx-auto flex items-center px-6 py-2 h-24">
       <Link href="/" className="flex items-center h-full w-auto">
         <Image
-          className="object-scale-down h-full w-auto"
+          className="-mt-5 object-scale-down h-full w-auto"
           src={logo}
           alt="Shower Thoughts Logo"
         />
