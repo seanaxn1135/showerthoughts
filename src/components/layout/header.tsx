@@ -1,10 +1,6 @@
 'use client'
 
-import Link from 'next/link'
 import Navbar from '../ui/navbar'
-import { Fragment } from 'react'
-import { Popover, Transition } from '@headlessui/react'
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/solid'
 
 export default function Header() {
   return (

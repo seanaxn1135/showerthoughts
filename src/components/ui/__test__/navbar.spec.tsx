@@ -28,7 +28,7 @@ describe('Navbar', () => {
     navItems.forEach((item) => {
       const linkElement = getByText(item.name)
       expect(linkElement).toBeInTheDocument()
-      expect(linkElement.getAttribute('href')).toBe(item.href)
+      expect(linkElement).toHaveAttribute('href', item.href)
     })
   })
 })
