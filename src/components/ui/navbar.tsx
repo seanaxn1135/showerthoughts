@@ -22,7 +22,15 @@ const navItems = [
   },
 ]
 
-function CustomLink({ key, href, name }: { key: number; href: string; name: string }) {
+function CustomLink({
+  key,
+  href,
+  name,
+}: {
+  key: number
+  href: string
+  name: string
+}) {
   return (
     <Link key={key} href={href} className="relative group">
       {name}
