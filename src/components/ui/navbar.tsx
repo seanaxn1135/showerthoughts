@@ -36,7 +36,7 @@ export default function Navbar() {
           </div>
           {/* Menu button when screen size is small */}
           <div className="flex grow items-center justify-end sm:hidden">
-            <Popover.Button className="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 focus-visible:ring-opacity-50">
+            <Popover.Button className="inline-flex items-center justify-center rounded-md bg-light p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 focus-visible:ring-opacity-50">
               <span className="sr-only">Open menu</span>
               {open ? (
                 <XMarkIcon className="h-6 w-6" aria-hidden="true" />
