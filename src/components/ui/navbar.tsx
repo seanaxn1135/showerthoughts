@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { Fragment } from 'react'
 import { Popover, Transition } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/solid'
@@ -31,10 +32,12 @@ function CustomLink({
   href: string
   name: string
 }) {
+  const pathName = usePathname();
+  console.log(usePathname())
   return (
     <Link key={key} href={href} className="relative group">
       {name}
-      <span className="h-[1px] bg-dark absolute left-0 -bottom-0.5 w-0 group-hover:w-full transition-all duration-300"></span>
+      <span className={`h-[1px] bg-dark absolute left-0 -bottom-0.5 w-0 group-hover:w-full transition-all duration-300 ${pathName === href ? 'w-full' : 'w-0'}`}></span>
     </Link>
   )
 }
