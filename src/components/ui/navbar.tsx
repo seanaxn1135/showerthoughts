@@ -37,8 +37,9 @@ function CustomLink({
     <Link key={key} href={href} className="relative group">
       {name}
       <span
-        className={`h-[1px] bg-dark absolute left-0 -bottom-0.5 w-0 group-hover:w-full transition-all duration-300 ${pathName === href ? 'w-full' : 'w-0'
-          }`}
+        className={`h-[1px] bg-dark absolute left-0 -bottom-0.5 w-0 group-hover:w-full transition-all duration-300 ${
+          pathName === href ? 'w-full' : 'w-0'
+        }`}
       ></span>
     </Link>
   )
