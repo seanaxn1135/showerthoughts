@@ -22,6 +22,15 @@ const navItems = [
   },
 ]
 
+function CustomLink({ key, href, name }: { key: number; href: string; name: string }) {
+  return (
+    <Link key={key} href={href} className="relative group">
+      {name}
+      <span className="h-[1px] bg-dark absolute left-0 -bottom-0.5 w-0 group-hover:w-full transition-all duration-300"></span>
+    </Link>
+  )
+}
+
 export default function Navbar() {
   return (
     <Popover>
@@ -29,9 +38,7 @@ export default function Navbar() {
         <>
           <div className="hidden sm:flex gap-4 md:gap-8">
             {navItems.map((item, index) => (
-              <Link key={index} href={item.href}>
-                {item.name}
-              </Link>
+              <CustomLink key={index} href={item.href} name={item.name} />
             ))}
           </div>
           {/* Menu button when screen size is small */}
