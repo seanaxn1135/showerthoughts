@@ -21,18 +21,10 @@ const navItems = [
   },
 ]
 
-function CustomLink({
-  key,
-  href,
-  name,
-}: {
-  key: number
-  href: string
-  name: string
-}) {
+function CustomLink({ href, name }: { href: string; name: string }) {
   const pathName = usePathname()
   return (
-    <Link key={key} href={href} className="relative group">
+    <Link href={href} className="relative group">
       {name}
       <span
         className={`h-[1px] bg-dark absolute left-0 -bottom-0.5 w-0 group-hover:w-full transition-all duration-300 ${
