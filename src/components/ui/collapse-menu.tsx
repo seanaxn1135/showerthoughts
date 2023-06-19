@@ -10,7 +10,7 @@ type MenuItem = {
 
 export default function CollapseMenu({
   menuItems,
-  className,
+  className = '',
 }: {
   menuItems: MenuItem[]
   className?: string
