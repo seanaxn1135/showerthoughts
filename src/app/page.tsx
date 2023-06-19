@@ -3,7 +3,7 @@ import codingDeveloper from './images/coding_developer.png'
 import Tagline from '@/components/home/tagline'
 
 export default function Home() {
-  const text = 'Trasforming Ideas Into Reality Through Code'
+  const text = 'Transforming Ideas Into Reality Through Code'
   return (
     <div className="flex lg:flex-row flex-col items-center justify-between w-full">
       <div className="w-1/2 h-full">
