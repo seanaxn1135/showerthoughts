@@ -3,6 +3,7 @@ import { Montserrat } from 'next/font/google'
 import './globals.css'
 
 import Header from '@/components/layout/header'
+import Footer from '@/components/layout/footer'
 
 const montserrat = Montserrat({
   subsets: ['latin'],
@@ -22,8 +23,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={montserrat.className}>
       <body className="font-mont bg-light max-w-7xl flex flex-col mt-8 lg:mx-auto">
-        <Header />
-        <main className="container mx-auto max-h-screen">{children}</main>
+        <div className="flex-grow min-h-screen">
+          <Header />
+          <main className="container mx-auto">{children}</main>
+        </div>
+        <Footer />
       </body>
     </html>
   )
