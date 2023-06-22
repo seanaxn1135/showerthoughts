@@ -1,4 +1,4 @@
-import { tagline, description } from 'lib/info'
+import { tagline, description } from '@/lib/info'
 import Image from 'next/image'
 import codingDeveloper from './images/coding_developer.png'
 import Tagline from '@/components/home/tagline'
