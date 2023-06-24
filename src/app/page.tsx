@@ -2,6 +2,7 @@ import { tagline, description } from '@/lib/info'
 import Image from 'next/image'
 import codingDeveloper from './images/coding_developer.png'
 import Tagline from '@/components/home/tagline'
+import Button from '@/components/ui/button'
 
 export default function Home() {
   return (
@@ -16,6 +17,12 @@ export default function Home() {
       <div className="w-1/2 h-full">
         <Tagline text={tagline} />
         <p>{description()}</p>
+        <div className="my-3 sm:my-5 flex row-auto">
+          <Button className="mr-3" href="/about">
+            About me
+          </Button>
+          <Button href="/blog">My Blog</Button>
+        </div>
       </div>
     </div>
   )
