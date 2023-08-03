@@ -21,8 +21,6 @@ jobs:
         with:
           node-version: 20
           cache: 'npm'
-      - run: echo "${{ secrets.MONGODB_URI }} | cut -c -20"
-        shell: bash
       - run: make setup
       - run: npm run lint
       - run: npm run test
