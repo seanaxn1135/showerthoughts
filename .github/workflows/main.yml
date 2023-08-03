@@ -19,8 +19,6 @@ jobs:
           node-version: 20
           cache: 'npm'
 
-      - name: Set production environment
-        run: echo "NODE_ENV=production" >> $GITHUB_ENV
       - run: make setup
       - run: npm run lint
       - run: npm run test
