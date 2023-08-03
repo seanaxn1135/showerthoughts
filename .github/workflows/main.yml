@@ -6,7 +6,10 @@ on:
     paths-ignore: ['**.md', 'docs/**']
 
   workflow_dispatch:
-
+env:
+  NEXTAUTH_SECRET: ${{secrets.NEXTAUTH_SECRET}}
+  MONGODB_URI: ${{secrets.MONGODB_URI}}
+  DATABASE_NAME: showerthoughts
 jobs:
   Deploy-Production:
     timeout-minutes: 8
@@ -18,7 +21,8 @@ jobs:
         with:
           node-version: 20
           cache: 'npm'
-
+      - name: Set production environment
+        run: echo "NODE_ENV=production" >> $GITHUB_ENV
       - run: make setup
       - run: npm run lint
       - run: npm run test
