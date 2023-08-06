@@ -3,7 +3,7 @@ export default function Card() {
     <div className="my-2">
       <a
         href="#"
-        className="block max-w-4xl p-6 rounded-lg shadow-lg border-dark border-2 bg-orange-100 hover:bg-orange-200"
+        className="block max-w-4xl p-6 rounded-lg shadow-md border-dark border-2 bg-orange-100 hover:bg-orange-200/[.75] hover:shadow-lg"
       >
         <h5 className="mb-2 text-xl font-bold tracking-tight">
           Noteworthy technology acquisitions 2021
