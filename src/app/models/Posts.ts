@@ -1,6 +1,6 @@
 import { Schema, model } from 'mongoose'
 
-const postSchema = new Schema({
+const postsSchema = new Schema({
   title: { type: String, required: true },
   content: { type: String, required: true }, // MDX content
   author: { type: String, required: true },
@@ -11,9 +11,8 @@ const postSchema = new Schema({
   updatedAt: { type: Date, default: Date.now },
 })
 
-// Indexes
-postSchema.index({ title: 'text', content: 'text' })
+postsSchema.index({ title: 'text' })
 
-const Post = model('Post', postSchema)
+const Posts = model('Posts', postsSchema)
 
-export default Post
+export default Posts

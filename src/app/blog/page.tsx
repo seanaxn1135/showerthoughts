@@ -1,11 +1,9 @@
-import Card from '@/components/blog/card'
+import Pagination from '@/components/blog/pagination'
 
 export default async function Blog() {
   return (
     <div className="grid justify-items-center ">
-      <Card />
-      <Card />
-      <Card />
+      <Pagination />
     </div>
   )
 }
