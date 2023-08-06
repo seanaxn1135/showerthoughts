@@ -1,5 +1,5 @@
 import Users from '@/app/models/Users'
-import connectMongo, { disconnectMongo } from '@/app/utils/dbConfig'
+import { connectMongo, disconnectMongo } from '@/app/utils/dbConfig'
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function GET(

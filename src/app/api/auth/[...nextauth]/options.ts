@@ -2,7 +2,7 @@ import type { NextAuthOptions } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import bcrypt from 'bcrypt'
 import Users from '@/app/models/Users'
-import connectMongo, { disconnectMongo } from '@/app/utils/dbConfig'
+import { connectMongo, disconnectMongo } from '@/app/utils/dbConfig'
 
 export const options: NextAuthOptions = {
   providers: [

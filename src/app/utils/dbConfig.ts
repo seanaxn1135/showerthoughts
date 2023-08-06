@@ -14,7 +14,7 @@ const connectMongo = async () => {
   }
 }
 
-export const disconnectMongo = async () => {
+const disconnectMongo = async () => {
   try {
     await mongoose.disconnect()
   } catch (err) {
@@ -22,4 +22,4 @@ export const disconnectMongo = async () => {
   }
 }
 
-export default connectMongo
+export { connectMongo, disconnectMongo }
