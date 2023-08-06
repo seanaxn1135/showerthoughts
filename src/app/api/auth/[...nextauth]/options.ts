@@ -1,7 +1,8 @@
 import type { NextAuthOptions } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import bcrypt from 'bcrypt'
-import clientPromise from '@/lib/db'
+import Users from '@/app/models/Users'
+import connectMongo from '@/app/utils/dbConfig'
 
 export const options: NextAuthOptions = {
   providers: [
@@ -20,11 +21,9 @@ export const options: NextAuthOptions = {
         },
       },
       async authorize(credentials) {
-        const client = await clientPromise
-        const db = client.db(process.env.DATABASE_NAME)
-        const usersCollection = db.collection('users')
+        await connectMongo()
         const usernameInput = credentials?.username?.toLowerCase()
-        const user = await usersCollection.findOne({ username: usernameInput })
+        const user = await Users.findOne({ username: usernameInput })
 
         // error will be displayed advising the user to check their details if return null
         if (!user || !credentials?.username || !credentials?.password) {
