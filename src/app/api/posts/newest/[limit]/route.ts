@@ -25,5 +25,7 @@ export async function GET(
       { error: 'Failed to fetch posts' },
       { status: 500 }
     )
+  } finally {
+    await disconnectMongo()
   }
 }

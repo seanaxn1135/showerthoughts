@@ -1,5 +1,5 @@
 import Users from '@/app/models/Users'
-import connectMongo from '@/app/utils/dbConfig'
+import connectMongo, { disconnectMongo } from '@/app/utils/dbConfig'
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function GET(
@@ -17,5 +17,7 @@ export async function GET(
       { error: 'Failed to fetch user ' + params.username },
       { status: 500 }
     )
+  } finally {
+    await disconnectMongo()
   }
 }

@@ -2,7 +2,7 @@ import type { NextAuthOptions } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import bcrypt from 'bcrypt'
 import Users from '@/app/models/Users'
-import connectMongo from '@/app/utils/dbConfig'
+import connectMongo, { disconnectMongo } from '@/app/utils/dbConfig'
 
 export const options: NextAuthOptions = {
   providers: [
@@ -21,27 +21,34 @@ export const options: NextAuthOptions = {
         },
       },
       async authorize(credentials) {
-        await connectMongo()
-        const usernameInput = credentials?.username?.toLowerCase()
-        const user = await Users.findOne({ username: usernameInput })
+        try {
+          await connectMongo()
 
-        // error will be displayed advising the user to check their details if return null
-        if (!user || !credentials?.username || !credentials?.password) {
+          const usernameInput = credentials?.username?.toLowerCase()
+          const user = await Users.findOne({ username: usernameInput })
+
+          if (!user || !credentials?.username || !credentials?.password) {
+            return null
+          }
+
+          const passwordIsValid = await bcrypt.compare(
+            credentials.password,
+            user.password
+          )
+
+          if (!passwordIsValid) {
+            return null
+          }
+
+          return {
+            id: user._id.toString(),
+            username: user.username,
+          }
+        } catch (error) {
+          console.error('Error in authorize function:', error)
           return null
-        }
-
-        const passwordIsValid = await bcrypt.compare(
-          credentials.password,
-          user.password
-        )
-
-        if (!passwordIsValid) {
-          return null
-        }
-
-        return {
-          id: user._id.toString(),
-          username: user.username,
+        } finally {
+          await disconnectMongo()
         }
       },
     }),
