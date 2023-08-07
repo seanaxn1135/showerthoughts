@@ -2,7 +2,7 @@ import type { NextAuthOptions } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import bcrypt from 'bcrypt'
 import Users from '@/app/models/Users'
-import { connectMongo, disconnectMongo } from '@/app/utils/dbConfig'
+import dbConnect from '@/lib/dbConnect'
 
 export const options: NextAuthOptions = {
   providers: [
@@ -22,8 +22,7 @@ export const options: NextAuthOptions = {
       },
       async authorize(credentials) {
         try {
-          await connectMongo()
-
+          await dbConnect()
           const usernameInput = credentials?.username?.toLowerCase()
           const user = await Users.findOne({ username: usernameInput })
 
@@ -47,8 +46,6 @@ export const options: NextAuthOptions = {
         } catch (error) {
           console.error('Error in authorize function:', error)
           return null
-        } finally {
-          await disconnectMongo()
         }
       },
     }),

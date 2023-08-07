@@ -1,5 +1,5 @@
 import Posts from '@/app/models/Posts'
-import { connectMongo, disconnectMongo } from '@/app/utils/dbConfig'
+import dbConnect from '@/lib/dbConnect'
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function GET(
@@ -7,6 +7,7 @@ export async function GET(
   { params }: { params: { limit: string } }
 ) {
   try {
+    await dbConnect()
     const limit = parseInt(params.limit)
     if (isNaN(limit) || limit <= 0) {
       return NextResponse.json(
@@ -17,7 +18,6 @@ export async function GET(
         { status: 400 }
       )
     }
-    await connectMongo()
     const posts = await Posts.find().sort({ createdAt: -1 }).limit(limit)
     return NextResponse.json(posts, { status: 200 })
   } catch (error) {
@@ -25,7 +25,5 @@ export async function GET(
       { error: 'Failed to fetch posts' },
       { status: 500 }
     )
-  } finally {
-    await disconnectMongo()
   }
 }

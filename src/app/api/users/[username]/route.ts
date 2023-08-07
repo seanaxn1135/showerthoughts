@@ -1,5 +1,5 @@
 import Users from '@/app/models/Users'
-import { connectMongo, disconnectMongo } from '@/app/utils/dbConfig'
+import dbConnect from '@/lib/dbConnect'
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function GET(
@@ -7,8 +7,7 @@ export async function GET(
   { params }: { params: { username: string } }
 ) {
   try {
-    await connectMongo()
-
+    await dbConnect()
     const username = params.username
     const user = await Users.findOne({ username: username })
     return NextResponse.json(user, { status: 200 })
@@ -17,7 +16,5 @@ export async function GET(
       { error: 'Failed to fetch user ' + params.username },
       { status: 500 }
     )
-  } finally {
-    await disconnectMongo()
   }
 }

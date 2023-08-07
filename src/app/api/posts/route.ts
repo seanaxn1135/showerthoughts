@@ -1,10 +1,9 @@
 import Posts from '@/app/models/Posts'
-import { connectMongo, disconnectMongo } from '@/app/utils/dbConfig'
+import dbConnect from '@/lib/dbConnect'
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function GET() {
   try {
-    await connectMongo()
     const posts = await Posts.find()
     return NextResponse.json(posts, { status: 200 })
   } catch (error) {
@@ -17,8 +16,8 @@ export async function GET() {
 
 export async function POST(req: NextRequest) {
   try {
+    await dbConnect()
     const reqBody = await req.json()
-    await connectMongo()
     const post = new Posts(reqBody)
     await post.save()
     return NextResponse.json(
@@ -30,7 +29,5 @@ export async function POST(req: NextRequest) {
       { error: 'Failed to create post' },
       { status: 500 }
     )
-  } finally {
-    await disconnectMongo()
   }
 }
