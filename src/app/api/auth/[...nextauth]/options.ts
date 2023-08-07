@@ -1,8 +1,5 @@
 import type { NextAuthOptions } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
-import bcrypt from 'bcrypt'
-import Users from '@/app/models/Users'
-import dbConnect from '@/lib/dbConnect'
 
 export const options: NextAuthOptions = {
   providers: [
@@ -21,30 +18,23 @@ export const options: NextAuthOptions = {
         },
       },
       async authorize(credentials) {
-        try {
-          await dbConnect()
-          const usernameInput = credentials?.username?.toLowerCase()
-          const user = await Users.findOne({ username: usernameInput })
+        const BASE_URL = process.env.BASE_URL
+        const LOGIN_API_URL = '/api/login'
+        const res = await fetch(`${BASE_URL}${LOGIN_API_URL}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            username: credentials?.username,
+            password: credentials?.password,
+          }),
+        })
+        const user = await res.json()
 
-          if (!user || !credentials?.username || !credentials?.password) {
-            return null
-          }
-
-          const passwordIsValid = await bcrypt.compare(
-            credentials.password,
-            user.password
-          )
-
-          if (!passwordIsValid) {
-            return null
-          }
-
-          return {
-            id: user._id.toString(),
-            username: user.username,
-          }
-        } catch (error) {
-          console.error('Error in authorize function:', error)
+        if (user) {
+          return user
+        } else {
           return null
         }
       },
