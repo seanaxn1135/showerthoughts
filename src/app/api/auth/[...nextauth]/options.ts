@@ -1,5 +1,6 @@
 import type { NextAuthOptions } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
+import { server } from '@/config'
 
 export const options: NextAuthOptions = {
   providers: [
@@ -18,7 +19,7 @@ export const options: NextAuthOptions = {
         },
       },
       async authorize(credentials) {
-        const BASE_URL = process.env.BASE_URL
+        const BASE_URL = server
         const LOGIN_API_URL = '/api/login'
         const res = await fetch(`${BASE_URL}${LOGIN_API_URL}`, {
           method: 'POST',

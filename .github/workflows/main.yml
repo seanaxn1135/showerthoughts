@@ -10,7 +10,6 @@ env:
   BASE_URL: ${GITHUB_WORKSPACE}
   NEXTAUTH_SECRET: ${{secrets.NEXTAUTH_SECRET}}
   MONGODB_URI: ${{secrets.MONGODB_URI}}
-  DATABASE_NAME: showerthoughts_test
 jobs:
   Deploy-Production:
     timeout-minutes: 8
