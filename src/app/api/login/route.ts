@@ -2,6 +2,7 @@ import Users from '@/app/models/Users'
 import dbConnect from '@/lib/dbConnect'
 import { NextRequest, NextResponse } from 'next/server'
 import bcrypt from 'bcrypt'
+import { server } from '@/config'
 
 type RequestBody = {
   username: string
@@ -17,7 +18,7 @@ export async function POST(req: NextRequest) {
     if (user && (await bcrypt.compare(body.password, user.password))) {
       const userWithoutPass = { ...user.toObject() }
       delete userWithoutPass.password
-      return new NextResponse(JSON.stringify(userWithoutPass))
+      return new NextResponse(JSON.stringify(server))
     } else return new NextResponse(JSON.stringify(null))
   } catch (error) {
     return NextResponse.json(
