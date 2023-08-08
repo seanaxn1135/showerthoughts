@@ -1,5 +1,6 @@
 import type { NextAuthOptions } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
+import { NextResponse } from 'next/server'
 
 export const options: NextAuthOptions = {
   providers: [
@@ -18,25 +19,32 @@ export const options: NextAuthOptions = {
         },
       },
       async authorize(credentials) {
-        const BASE_URL = process.env.BASE_URL
-        const LOGIN_API_URL = '/api/login'
-        console.log(`${BASE_URL}${LOGIN_API_URL}`)
-        const res = await fetch(`${BASE_URL}${LOGIN_API_URL}`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            username: credentials?.username,
-            password: credentials?.password,
-          }),
-        })
-        const user = await res.json()
+        try {
+          const BASE_URL = process.env.BASE_URL
+          const LOGIN_API_URL = '/api/login'
+          const res = await fetch(`${BASE_URL}${LOGIN_API_URL}`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              username: credentials?.username,
+              password: credentials?.password,
+            }),
+          })
 
-        if (user) {
-          return user
-        } else {
-          return null
+          const user = await res.json()
+
+          if (user) {
+            return user
+          } else {
+            return null
+          }
+        } catch (error) {
+          return NextResponse.json(
+            { error: 'Internal server error' },
+            { status: 500 }
+          )
         }
       },
     }),
