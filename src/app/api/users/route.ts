@@ -1,8 +1,8 @@
-import bcrypt from 'bcrypt'
 import Users from '@/app/models/Users'
 import dbConnect from '@/lib/dbConnect'
 import { verifyJwt } from '@/lib/jwt'
 import { NextRequest, NextResponse } from 'next/server'
+import { createUser } from './domain'
 
 function isAuthorized(req: NextRequest) {
   const accessToken = req.headers.get('authorization')
@@ -31,21 +31,18 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
-  if (isAuthorized(req))
-    try {
-      const reqBody = await req.json()
-      reqBody.password = await bcrypt.hash(reqBody.password, 10)
-      await dbConnect()
-      const user = new Users(reqBody)
-      await user.save()
-      return NextResponse.json(
-        { message: 'Success, user ' + user.username + ' has been created' },
-        { status: 200 }
-      )
-    } catch (error) {
-      return NextResponse.json(
-        { error: 'Failed to create user' },
-        { status: 500 }
-      )
-    }
+  // if (isAuthorized(req))
+  try {
+    const reqBody = await req.json()
+    const user = await createUser(reqBody)
+    return NextResponse.json(
+      { message: 'Success, user ' + user.username + ' has been created' },
+      { status: 200 }
+    )
+  } catch (error) {
+    return NextResponse.json(
+      { error: 'Failed to create user' },
+      { status: 500 }
+    )
+  }
 }
