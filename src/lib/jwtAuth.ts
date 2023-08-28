@@ -10,5 +10,4 @@ export default function isAuthorized(req: NextRequest) {
     )
     throw response
   }
-  return true
 }
