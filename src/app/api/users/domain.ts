@@ -6,3 +6,7 @@ export async function createUser(userData: User): Promise<User> {
 
   return await persistence.createUser(userData)
 }
+
+export async function getUserByUsername(username: string): Promise<User> {
+  return await persistence.getUserByUsername(username)
+}

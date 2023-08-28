@@ -1,15 +1,14 @@
-import Users from '@/app/models/Users'
-import dbConnect from '@/lib/dbConnect'
+import isAuthorized from '@/lib/jwtAuth'
 import { NextRequest, NextResponse } from 'next/server'
+import { getUserByUsername } from '../persistence'
 
 export async function GET(
   req: NextRequest,
   { params }: { params: { username: string } }
 ) {
+  isAuthorized(req)
   try {
-    await dbConnect()
-    const username = params.username
-    const user = await Users.findOne({ username: username })
+    const user = await getUserByUsername(params.username)
     return NextResponse.json(user, { status: 200 })
   } catch (error) {
     return NextResponse.json(
