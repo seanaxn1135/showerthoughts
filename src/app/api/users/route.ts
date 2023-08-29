@@ -1,4 +1,4 @@
-import isAuthorized from '@/lib/apiAuthHelper'
+import isAuthorized from '@/lib/jwtAuth'
 import { NextRequest, NextResponse } from 'next/server'
 import { createUser } from './domain'
 
