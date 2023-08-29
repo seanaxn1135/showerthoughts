@@ -1,12 +1,16 @@
 import isAuthorized from '@/lib/jwtAuth'
 import { NextRequest, NextResponse } from 'next/server'
-import { createUser } from './domain'
+import { UsersCollectionMongo } from './persistence'
+import { UserService } from './domain'
 
 export async function POST(req: NextRequest) {
   isAuthorized(req)
+  const usersCollection = new UsersCollectionMongo()
+  const userService = new UserService(usersCollection)
   try {
     const reqBody = await req.json()
-    const user = await createUser(reqBody)
+    const user = await userService.createUser(reqBody)
+    console.log(user)
     return NextResponse.json(
       { message: 'Success, user ' + user.username + ' has been created' },
       { status: 200 }

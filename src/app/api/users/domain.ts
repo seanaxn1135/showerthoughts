@@ -1,12 +1,12 @@
 import { User } from './types'
-import * as persistence from './persistence'
+import { UsersCollection } from './persistence'
 
-export async function createUser(userData: User): Promise<User> {
-  // TODO: check username & password validity
-
-  return await persistence.createUser(userData)
-}
-
-export async function getUserByUsername(username: string): Promise<User> {
-  return await persistence.getUserByUsername(username)
+export class UserService {
+  constructor(private userCollection: UsersCollection) {}
+  createUser(userData: User): Promise<User> {
+    return this.userCollection.createUser(userData)
+  }
+  getUserByUsername(username: string): Promise<User> {
+    return this.userCollection.getUserByUsername(username)
+  }
 }
