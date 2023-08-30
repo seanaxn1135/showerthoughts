@@ -1,12 +1,12 @@
-import { User } from './types'
+import { UserRequest, DatabaseUser } from './types'
 import { UsersCollection } from './persistence'
 
 export class UserService {
   constructor(private userCollection: UsersCollection) {}
-  createUser(userData: User): Promise<User> {
-    return this.userCollection.createUser(userData)
+  createUser(userRequest: UserRequest): Promise<DatabaseUser> {
+    return this.userCollection.createUser(userRequest)
   }
-  getUserByUsername(username: string): Promise<User> {
+  getUserByUsername(username: string): Promise<DatabaseUser> {
     return this.userCollection.getUserByUsername(username)
   }
 }
