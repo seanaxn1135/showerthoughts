@@ -1,10 +1,13 @@
-import Posts from '@/app/models/Posts'
-import dbConnect from '@/lib/dbConnect'
 import { NextRequest, NextResponse } from 'next/server'
+import { PostsCollectionMongo } from './persistence'
+import { PostService } from './domain'
 
 export async function GET() {
+  const postsCollection = new PostsCollectionMongo()
+  const postService = new PostService(postsCollection)
   try {
-    const posts = await Posts.find()
+    const posts = await postService.getAllPost()
+    console.log(posts)
     return NextResponse.json(posts, { status: 200 })
   } catch (error) {
     return NextResponse.json(
@@ -15,13 +18,13 @@ export async function GET() {
 }
 
 export async function POST(req: NextRequest) {
+  const postsCollection = new PostsCollectionMongo()
+  const postService = new PostService(postsCollection)
   try {
-    await dbConnect()
     const reqBody = await req.json()
-    const post = new Posts(reqBody)
-    await post.save()
+    const post = await postService.createPost(reqBody)
     return NextResponse.json(
-      { message: 'Success, post ' + post.id + ' has been created' },
+      { message: "Success, post '" + post.title + "' has been created" },
       { status: 200 }
     )
   } catch (error) {

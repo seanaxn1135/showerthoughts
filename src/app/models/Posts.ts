@@ -1,8 +1,19 @@
-import { Schema, model } from 'mongoose'
+import mongoose, { Model } from 'mongoose'
 
-const postsSchema = new Schema({
-  title: { type: String, required: true },
-  content: { type: String, required: true }, // MDX content
+export interface IPost {
+  title: string
+  content: string
+  author: string
+  images?: string[]
+  category?: string
+  tags?: string[]
+  createdAt: Date
+  updatedAt: Date
+}
+
+const postsSchema = new mongoose.Schema<IPost>({
+  title: { type: String, required: true, unique: true },
+  content: { type: String, required: true },
   author: { type: String, required: true },
   images: [{ type: String }],
   category: { type: String },
@@ -13,6 +24,7 @@ const postsSchema = new Schema({
 
 postsSchema.index({ title: 'text' })
 
-const Posts = model('Posts', postsSchema)
+const Posts: Model<IPost> =
+  mongoose.models.Posts || mongoose.model<IPost>('Posts', postsSchema)
 
 export default Posts

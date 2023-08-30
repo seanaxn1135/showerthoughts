@@ -2,7 +2,6 @@ import Users from '@/app/models/Users'
 import dbConnect from '@/lib/dbConnect'
 import bcrypt from 'bcrypt'
 import { UserRequest, DatabaseUser } from './types'
-import { error } from 'console'
 
 export interface UsersCollection {
   createUser(userRequest: UserRequest): Promise<DatabaseUser>
@@ -15,15 +14,15 @@ export class UsersCollectionMongo implements UsersCollection {
     userRequest.password = await bcrypt.hash(userRequest.password, 10)
     const user = new Users(userRequest)
     await user.save()
-    return user
+    return user.toObject()
   }
   async getUserByUsername(username: string): Promise<DatabaseUser> {
     await dbConnect()
     const user = await Users.findOne({ username: username })
     if (user === null) {
-      throw error
+      throw new Error()
     }
     console.log(user)
-    return user
+    return user.toObject()
   }
 }
