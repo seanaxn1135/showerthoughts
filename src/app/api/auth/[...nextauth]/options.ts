@@ -20,7 +20,7 @@ export const options: NextAuthOptions = {
       },
       async authorize(credentials) {
         const BASE_URL = server
-        const LOGIN_API_URL = '/api/login'
+        const LOGIN_API_URL = '/api/token'
         const res = await fetch(`${BASE_URL}${LOGIN_API_URL}`, {
           method: 'POST',
           headers: {
