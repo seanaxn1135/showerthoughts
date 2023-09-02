@@ -1,4 +1,4 @@
-import isAuthorized from '@/lib/jwtAuth'
+import isAuthorized from '../../token/token'
 import { NextRequest, NextResponse } from 'next/server'
 import { UserService } from '../domain'
 import { UsersCollectionMongo } from '../persistence'
@@ -14,9 +14,6 @@ export async function GET(
     const user = await userService.getUserByUsername(params.username)
     return NextResponse.json(user, { status: 200 })
   } catch (error) {
-    return NextResponse.json(
-      { error: 'Failed to fetch user ' + params.username },
-      { status: 500 }
-    )
+    return NextResponse.json({ error: error }, { status: 404 })
   }
 }

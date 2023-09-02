@@ -10,4 +10,10 @@ export class UserService {
   getUserByUsername(username: string): Promise<IUser> {
     return this.userCollection.getUserByUsername(username)
   }
+  getUsernameByUsernameAndPassword(
+    username: string,
+    password: string
+  ): Promise<IUser> {
+    return this.userCollection.getUserByUsernameAndPassword(username, password)
+  }
 }

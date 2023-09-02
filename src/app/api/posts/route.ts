@@ -7,12 +7,11 @@ export async function GET() {
   const postService = new PostService(postsCollection)
   try {
     const posts = await postService.getAllPost()
-    console.log(posts)
     return NextResponse.json(posts, { status: 200 })
   } catch (error) {
     return NextResponse.json(
       { error: 'Failed to fetch posts' },
-      { status: 500 }
+      { status: 400 }
     )
   }
 }
