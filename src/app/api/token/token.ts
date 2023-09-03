@@ -1,5 +1,5 @@
 import jwt, { JwtPayload } from 'jsonwebtoken'
-import { NextRequest, NextResponse } from 'next/server'
+import { NextRequest } from 'next/server'
 
 interface SignOption {
   expiresIn?: string | number
@@ -36,10 +36,7 @@ function verifyJwt(token: string) {
 export default function isAuthorized(req: NextRequest) {
   const accessToken = req.headers.get('authorization')
   if (!accessToken || !verifyJwt(accessToken)) {
-    const response = NextResponse.json(
-      { error: 'Unauthorized' },
-      { status: 401 }
-    )
-    throw response
+    return false
   }
+  return true
 }

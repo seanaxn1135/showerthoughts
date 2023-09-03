@@ -1,8 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { PostsCollectionMongo } from './persistence'
 import { PostService } from './domain'
+import isAuthorized from '../token/token'
 
 export async function GET() {
+  console.log('Reached here')
   const postsCollection = new PostsCollectionMongo()
   const postService = new PostService(postsCollection)
   try {
@@ -17,6 +19,9 @@ export async function GET() {
 }
 
 export async function POST(req: NextRequest) {
+  if (!isAuthorized(req)) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  }
   const postsCollection = new PostsCollectionMongo()
   const postService = new PostService(postsCollection)
   try {
