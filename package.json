@@ -9,6 +9,7 @@
     "start": "next start",
     "lint": "next lint",
     "test": "jest --verbose --coverage",
+    "test:api": "playwright test api_tests/",
     "test:prod": "NODE_ENV=production jest --verbose --coverage",
     "test:watch": "jest --watch --verbose",
     "test:coverage": "jest --coverage"
@@ -36,6 +37,7 @@
   },
   "devDependencies": {
     "@faker-js/faker": "^8.0.2",
+    "@playwright/test": "^1.37.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
     "@testing-library/user-event": "^14.4.3",
