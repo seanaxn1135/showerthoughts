@@ -1,24 +1,23 @@
 #!/bin/bash
 
-HOST="${HOST:-https://localhost:3000}"
+HOST="${HOST:-http://localhost:3000}"
 
 
 echo testing against $HOST
 
 # Check if running locally
-if [ "$HOST" = "https://localhost:3000" ]; then
-    echo killing process on port 3000
-    kill $(lsof -t -i:3000) || true
-    while [[ -n $(lsof -t -i:3000) ]]; do
-        echo waiting kill
-        sleep 1
-    done
-fi
-start_time=$(date +%s)
+# if [ "$HOST" = "https://localhost:3000" ]; then
+#     echo killing process on port 3000
+#     kill $(lsof -t -i:3000) || true
+#     while [[ -n $(lsof -t -i:3000) ]]; do
+#         echo waiting kill
+#         sleep 1
+#     done
+# fi
 echo "Starting MongoDB in Docker..."
 docker-compose up -d mongodb
 
-sleep 10
+sleep 5
 
 echo "Seeding data into MongoDB..."
 node scripts/seedUser.js
@@ -31,4 +30,4 @@ TEST_HOST=$HOST npx playwright test ./api_tests --project=chromium || {
 }
 
 echo closing docker
-docker-compose down -v
+docker-compose down

@@ -1,4 +1,4 @@
-const { MongoClient } = require('mongodb')
+const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
 require('dotenv').config()
 
@@ -7,24 +7,38 @@ console.log(uri)
 if (!uri) {
   throw new Error('DB URI is missing')
 }
-const client = new MongoClient(uri)
+
+// Define Users Schema
+const usersSchema = new mongoose.Schema({
+  username: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
+  createdAt: { type: Date, default: Date.now },
+  updatedAt: { type: Date, default: Date.now },
+})
+
+usersSchema.index({ username: 1 }, { unique: true })
+
+// Create Users Model
+const Users = mongoose.model('Users', usersSchema)
 
 async function seedData() {
   try {
-    await client.connect()
+    // Connect to MongoDB using Mongoose
+    await mongoose.connect(uri, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    })
 
-    const database = client.db()
-    const usersCollection = database.collection('users')
     const password = await bcrypt.hash('testpassword', 10)
     const users = [{ username: 'testuser', password: password }]
 
-    await usersCollection.insertMany(users)
+    await Users.insertMany(users)
 
     console.log('Data seeding complete!')
   } catch (err) {
     console.error('Error seeding data: ', err)
   } finally {
-    await client.close()
+    await mongoose.disconnect()
   }
 }
 
