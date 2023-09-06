@@ -1,7 +1,7 @@
 setup:
 	git config core.hooksPath .githooks
 	npm ci
-	npx playwright@1.26.0 install --with-deps chromium webkit
+	npx playwright install --with-deps chromium webkit
 
 format-check:
 	npx prettier --check .
