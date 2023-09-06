@@ -7,3 +7,6 @@ format-check:
 
 format:
 	npx prettier --write .
+
+e2e-tests:
+	sh e2e-tests.sh

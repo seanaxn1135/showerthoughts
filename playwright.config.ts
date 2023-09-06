@@ -1,4 +1,5 @@
 import { defineConfig, devices } from '@playwright/test'
+
 const { TEST_HOST } = process.env
 
 if (!TEST_HOST) {
@@ -10,6 +11,7 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : undefined,
+  testIgnore: ['pages/**', '__tests__/**'],
   use: {
     baseURL: host,
     trace: 'on-first-retry',

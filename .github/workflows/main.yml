@@ -30,9 +30,18 @@ jobs:
       - run: npm run build
 
       - uses: amondnet/vercel-action@v20
+        id: deploy-preview
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
           vercel-org-id: ${{ secrets.ORG_ID}}
           vercel-project-id: ${{ secrets.PROJECT_ID}}
           working-directory: ./
+      - name: run e2e-tests against ${{ steps.deploy-preview.outputs.preview-url }}
+        run: make HOST=${{ steps.deploy-preview.outputs.preview-url }} e2e-tests
+      - uses: actions/upload-artifact@v3
+        if: always()
+        continue-on-error: true
+        with:
+          name: test-results
+          path: test-results

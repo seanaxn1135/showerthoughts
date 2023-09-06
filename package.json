@@ -9,7 +9,7 @@
     "start": "next start",
     "lint": "next lint",
     "test": "jest --verbose --coverage",
-    "test:api": "playwright test api_tests/",
+    "test:api": "playwright test api_tests/ --project=chromium",
     "test:prod": "NODE_ENV=production jest --verbose --coverage",
     "test:watch": "jest --watch --verbose",
     "test:coverage": "jest --coverage"
