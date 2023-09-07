@@ -51,5 +51,6 @@ test.describe.serial('#users', async () => {
       expect(responseBody).toHaveProperty('updatedAt')
     })
     test.skip('should delete user by username', async ({ request }) => {})
+    test.skip('should patch user by username', async ({ request }) => {})
   })
 })

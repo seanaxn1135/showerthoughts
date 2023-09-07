@@ -4,7 +4,6 @@ import { PostService } from './domain'
 import isAuthorized from '../token/token'
 
 export async function GET() {
-  console.log('Reached here')
   const postsCollection = new PostsCollectionMongo()
   const postService = new PostService(postsCollection)
   try {
@@ -32,9 +31,6 @@ export async function POST(req: NextRequest) {
       { status: 200 }
     )
   } catch (error) {
-    return NextResponse.json(
-      { error: 'Failed to create post' },
-      { status: 500 }
-    )
+    return NextResponse.json({ error: 'Invalid request' }, { status: 400 })
   }
 }
