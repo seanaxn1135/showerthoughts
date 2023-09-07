@@ -14,6 +14,7 @@ test.describe.serial('#posts', async () => {
     token = await req.json()
   })
   test.skip('should create post if authorized', () => {})
+  test.skip('should not create post if invalid data', () => {})
   test.skip('should get all posts', () => {})
   test.skip('should get post by title', () => {})
 })
