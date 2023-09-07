@@ -3,14 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "prestart": "cp .githooks/pre-commit .git/hooks/ && chmod +x .git/hooks/pre-commit && echo 'hook copied'",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "test": "jest --verbose --coverage",
     "test:api": "playwright test api_tests/ --project=chromium",
-    "test:prod": "NODE_ENV=production jest --verbose --coverage",
     "test:watch": "jest --watch --verbose",
     "test:coverage": "jest --coverage"
   },
@@ -45,7 +43,6 @@
     "@types/bcrypt": "^5.0.0",
     "@types/jest": "^29.5.3",
     "@types/jsonwebtoken": "^9.0.2",
-    "@types/supertest": "^2.0.12",
     "@types/testing-library__jest-dom": "^5.14.6",
     "@typescript-eslint/eslint-plugin": "^5.59.9",
     "autoprefixer": "^10.4.14",
@@ -57,7 +54,6 @@
     "jest-environment-jsdom": "^29.5.0",
     "jest-fetch-mock": "^3.0.3",
     "prettier": "^2.8.8",
-    "supertest": "^6.3.3",
     "ts-jest": "^29.1.1",
     "ts-node": "^10.9.1"
   }
