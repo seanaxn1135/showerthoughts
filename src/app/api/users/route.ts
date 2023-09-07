@@ -4,7 +4,9 @@ import { UsersCollectionMongo } from './persistence'
 import { UserService } from './domain'
 
 export async function POST(req: NextRequest) {
-  isAuthorized(req)
+  if (!isAuthorized(req)) {
+    return NextResponse.json({ error: 'Unauthrorized' }, { status: 401 })
+  }
   const usersCollection = new UsersCollectionMongo()
   const userService = new UserService(usersCollection)
   try {
