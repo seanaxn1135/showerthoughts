@@ -17,6 +17,9 @@ export async function POST(req: NextRequest) {
       { status: 200 }
     )
   } catch (error) {
-    return NextResponse.json({ error: error }, { status: 400 })
+    if (error instanceof Error && error.message === 'UserNotFound') {
+      return NextResponse.json({ error: 'User not found' }, { status: 404 })
+    }
+    return NextResponse.json({ error: 'Invalid request' }, { status: 400 })
   }
 }
